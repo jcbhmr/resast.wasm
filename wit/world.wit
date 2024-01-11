@@ -1,42 +1,17 @@
-package example:hello-world-rust-wasm-component-lib@1.0.0;
+package jcbhmr:resast;
 
-interface hello-world-rust-wasm-component-lib-interface {
-  record report {
-    bouncy-castles: u32,
-    fun-percent: float64,
-    cat-count: u32,
-    unicorn-names: list<string>,
+interface resast {
+  record class {
+    id: option<ident>,
+    super-class: option<box-expr>,
+    body: class-boody,
   }
 
-  record point {
-    x: float64,
-    y: float64,
-  }
-
-  record circle {
-    center: point,
-    radius: float64,
+  resource box-expr {
+    deref: func() -> expr;
   }
 }
 
-world hello-world-rust-wasm-component-lib {
-  import print: func(msg: string);
-
-  export run: func();
-
-  export greet: func(name: string) -> string;
-  export greet-many: func(names: list<string>) -> string;
-
-  use hello-world-rust-wasm-component-lib-interface.{report};
-  export get-report: func() -> report;
-
-  use hello-world-rust-wasm-component-lib-interface.{circle};
-  export compute-area: func(circle: circle) -> float64;
-
-  export more-exports: interface {
-    resource int-box {
-      constructor(a: u32);
-      get-value: func() -> u32;
-    }
-  }
+world host {
+  export resast;
 }
